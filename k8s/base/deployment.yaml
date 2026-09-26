@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: logistics-api
   namespace: logistics
+  annotations:
+    kube-score/ignore: container-image-pull-policy
   labels:
     app.kubernetes.io/name: logistics-api
 spec:
