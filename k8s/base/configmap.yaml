@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logistics-api-config
+  namespace: logistics
+data:
+  APP_ENV: production
