@@ -81,7 +81,7 @@ spec:
             failureThreshold: 6
           livenessProbe:
             exec:
-              command: ["sh", "-c", "pg_isready -U logistics -d logistics"]
+              command: ["sh", "-c", "pg_ctl status -D \"$PGDATA\""]
             periodSeconds: 10
             failureThreshold: 3
       volumes:
