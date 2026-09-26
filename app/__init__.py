@@ -1,0 +1,1 @@
+"""CloudScale Logistics application package."""
