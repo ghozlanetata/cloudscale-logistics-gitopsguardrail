@@ -6,7 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/name: logistics-api
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: logistics-api
@@ -23,6 +22,15 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: logistics-api
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: logistics-api
       securityContext:
         runAsNonRoot: true
         runAsUser: 10001
@@ -55,9 +63,11 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+              ephemeral-storage: 128Mi
             limits:
               cpu: 500m
               memory: 256Mi
+              ephemeral-storage: 512Mi
           startupProbe:
             httpGet:
               path: /health
