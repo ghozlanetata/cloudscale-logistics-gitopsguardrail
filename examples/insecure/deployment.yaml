@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsafe-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unsafe-demo
+  template:
+    metadata:
+      labels:
+        app: unsafe-demo
+    spec:
+      containers:
+        - name: unsafe
+          image: nginx:latest
+          securityContext:
+            runAsUser: 0
+            privileged: true
+            allowPrivilegeEscalation: true
+            capabilities:
+              add: ["SYS_ADMIN", "NET_ADMIN"]
